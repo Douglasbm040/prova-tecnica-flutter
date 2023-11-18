@@ -14,7 +14,7 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Prova Tecnica Flutter',
       theme: CustomTheme.getTheme(),
-      initialRoute: Routes.login,
+      initialRoute: Routes.home,
       routes: {
         Routes.home: (context) =>
             const HomePage(title: 'Flutter Demo Home Page'),
