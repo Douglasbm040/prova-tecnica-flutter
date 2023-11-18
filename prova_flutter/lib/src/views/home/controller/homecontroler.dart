@@ -2,22 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mobx/mobx.dart';
 import 'package:prova_flutter/src/model/anotation.dart';
+import 'package:prova_flutter/src/repository/persistence/adapterpersistence.dart';
 import 'package:prova_flutter/src/shared/validation/validation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../repository/persistence/sharedpreference.dart';
+import '../../../repository/persistence/persistence.dart';
 import '../../../repository/redirect/adapterredirect.dart';
-import '../../../repository/redirect/urllauncher.dart';
+import '../../../repository/redirect/redirect.dart';
 import '../components/deleteconfirmationdialog.dart';
+import 'package:mobx/mobx.dart';
+
 import 'anotationcontroler.dart';
 part 'homecontroler.g.dart';
 
 class HomeController = _HomeControllerBase with _$HomeController;
 
-abstract class _HomeControllerBase with Store, Validation {
-  final TextEditingController textController = TextEditingController();
-  SharedPreference sharedPreferences = SharedPreference();
-  final AdapterRedirect redirect = UrlLauncher();
+abstract class _HomeControllerBase with Store {
+  final TextEditingController textController;
+  final AdapterPersistentence sharedPreferences;
   int _index = 0;
 
   set index(int value) {
@@ -63,21 +65,21 @@ abstract class _HomeControllerBase with Store, Validation {
     _addAnotation(input);
   }
 
-  void redirectWeb() {
-    redirect.redirect("https://www.google.com");
-  }
-
-  _HomeControllerBase() {
-    updateListAnotations();
+  _HomeControllerBase(
+      {required this.textController, required this.sharedPreferences}) {
+    initListAnotations();
   }
   @action
-  void updateListAnotations() async {
+  Future<void> updateListAnotations() async {
     await sharedPreferences.readAnotations();
     items = sharedPreferences.anotations
         .map((text) => AnotationController(anotation: Anotation(text: text)))
         .toList()
         .asObservable();
-    
+  }
+
+  initListAnotations() {
+    updateListAnotations();
   }
 
   void updateListSharedPreference() async {

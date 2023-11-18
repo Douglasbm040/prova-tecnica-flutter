@@ -41,6 +41,15 @@ mixin _$HomeController on _HomeControllerBase, Store {
     });
   }
 
+  late final _$updateListAnotationsAsyncAction =
+      AsyncAction('_HomeControllerBase.updateListAnotations', context: context);
+
+  @override
+  Future<void> updateListAnotations() {
+    return _$updateListAnotationsAsyncAction
+        .run(() => super.updateListAnotations());
+  }
+
   late final _$_HomeControllerBaseActionController =
       ActionController(name: '_HomeControllerBase', context: context);
 
