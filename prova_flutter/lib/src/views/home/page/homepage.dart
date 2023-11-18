@@ -6,7 +6,7 @@ import 'package:prova_flutter/src/views/home/controller/homecontroler.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:prova_flutter/src/views/shared/components/privacepolitictextcomponent.dart';
 
-import '../../../repository/persistence/persistence.dart';
+import '../../../repository/persistence/sharedpreference.dart';
 import '../../shared/controller/generalcontroller.dart';
 import '../components/textfieldcomponent.dart';
 import '../controller/anotationcontroler.dart';
