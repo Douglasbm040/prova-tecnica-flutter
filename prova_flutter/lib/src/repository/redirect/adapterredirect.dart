@@ -1,3 +1,3 @@
 abstract class AdapterRedirect {
-  Future<void> redirect(String url);
+  Future<void> redirectWEB(String url);
 }
