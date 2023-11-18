@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../custom/customtheme.dart';
+import '../../shared/components/privacepolitictextcomponent.dart';
 import '../components/textformfieldcomponent.dart';
 import '../controller/logincontroller.dart';
 
@@ -42,10 +42,11 @@ class _LoginPageState extends State<LoginPage> {
                   child: SizedBox(),
                 ),
                 TextFormFieldComponent(
-                    label: "Usuário",
-                    width: width,
-                    icon: const Icon(Icons.person),
-                    validator: loginController.userValidation),
+                  label: "Usuário",
+                  width: width,
+                  icon: const Icon(Icons.person),
+                  validator: loginController.userValidation,
+                ),
                 const SizedBox(height: 20),
                 Observer(builder: (context) {
                   return TextFormFieldComponent(
@@ -53,38 +54,31 @@ class _LoginPageState extends State<LoginPage> {
                       width: width,
                       icon: const Icon(Icons.lock),
                       passwordField: true,
-                      isObscure: loginController.isvisible,
+                      isObscure: loginController.isNotVisible,
                       validator: loginController.passwordValidation,
                       changedVisibility: loginController.changeVisible);
                 }),
                 Padding(
-                  padding: const EdgeInsets.all(30.0),
-                  child: SizedBox(
-                    width: 250,
-                    height: 60,
-                    child: ElevatedButton(
-                      onPressed: () => loginController.validateForm(context),
-                      child: Text(
-                        "Entrar",
-                        style: Theme.of(context).textTheme.labelMedium,
-                      ),
-                    ),
+                    padding: const EdgeInsets.all(30.0),
+                    child: SizedBox(
+                        width: 250,
+                        height: 60,
+                        child: ElevatedButton(
+                            onPressed: () =>
+                                loginController.validateForm(context),
+                            child: Text(
+                              "Entrar",
+                              style: Theme.of(context).textTheme.labelMedium,
+                            )))),
+                Expanded(
+                  flex: 2,
+                  child: PrivacePoliticTextComponent(
+                    redirect: () async {
+                      await loginController
+                          .redirectWeb("https://www.google.com");
+                    },
                   ),
                 ),
-                Expanded(
-                    flex: 2,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 30.0),
-                          child: Text(
-                            "Políticas de Privacidade",
-                            style: Theme.of(context).textTheme.labelMedium,
-                          ),
-                        ),
-                      ],
-                    )),
               ],
             ),
           ),
