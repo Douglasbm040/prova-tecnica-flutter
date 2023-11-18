@@ -1,20 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:prova_flutter/src/views/login/controller/logincontroller.dart';
+import 'package:prova_flutter/src/views/shared/controller/generalcontroller.dart';
 
 import '../../../custom/customtheme.dart';
 import '../../shared/components/privacepolitictextcomponent.dart';
 import '../components/textformfieldcomponent.dart';
-import '../controller/logincontroller.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
-
+  const LoginPage(
+      {super.key,
+      required this.controllerGeneral,
+      required this.controllerPage});
+  final GeneralController controllerGeneral;
+  final LoginController controllerPage;
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final loginController = LoginController();
+  late LoginController controllerPage;
+  late GeneralController controllerGeneral;
+  @override
+  void initState() {
+    super.initState();
+    controllerGeneral = widget.controllerGeneral;
+    controllerPage = widget.controllerPage;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
           child: Form(
-            key: loginController.formKey,
+            key: controllerPage.formKey,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -45,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
                   label: "Usuário",
                   width: width,
                   icon: const Icon(Icons.person),
-                  validator: loginController.userValidation,
+                  validator: controllerPage.userValidation,
                 ),
                 const SizedBox(height: 20),
                 Observer(builder: (context) {
@@ -54,9 +66,9 @@ class _LoginPageState extends State<LoginPage> {
                       width: width,
                       icon: const Icon(Icons.lock),
                       passwordField: true,
-                      isObscure: loginController.isNotVisible,
-                      validator: loginController.passwordValidation,
-                      changedVisibility: loginController.changeVisible);
+                      isObscure: controllerPage.isNotVisible,
+                      validator: controllerPage.passwordValidation,
+                      changedVisibility: controllerPage.changeVisible);
                 }),
                 Padding(
                     padding: const EdgeInsets.all(30.0),
@@ -65,7 +77,7 @@ class _LoginPageState extends State<LoginPage> {
                         height: 60,
                         child: ElevatedButton(
                             onPressed: () =>
-                                loginController.validateForm(context),
+                                controllerPage.validateForm(context),
                             child: Text(
                               "Entrar",
                               style: Theme.of(context).textTheme.labelMedium,
@@ -73,10 +85,7 @@ class _LoginPageState extends State<LoginPage> {
                 Expanded(
                   flex: 2,
                   child: PrivacePoliticTextComponent(
-                    redirect: () async {
-                      await loginController
-                          .redirectWeb("https://www.google.com");
-                    },
+                    redirect: controllerGeneral.onTextPrivicyPolitic,
                   ),
                 ),
               ],
