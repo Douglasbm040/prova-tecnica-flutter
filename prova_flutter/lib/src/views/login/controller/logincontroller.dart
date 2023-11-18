@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+
 import 'package:mobx/mobx.dart';
+import 'package:prova_flutter/src/repository/redirect/adapterredirect.dart';
+import 'package:prova_flutter/src/repository/redirect/urllauncher.dart';
 import 'package:prova_flutter/src/shared/routes/routes.dart';
 import 'package:prova_flutter/src/shared/validation/validation.dart';
 part 'logincontroller.g.dart';
@@ -8,13 +11,14 @@ class LoginController = _LoginControllerBase with _$LoginController;
 
 abstract class _LoginControllerBase with Store, Validation {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final AdapterRedirect redirect = UrlLauncher();
 
   @observable
-  bool isvisible = false;
+  bool isNotVisible = true;
 
   @action
   void changeVisible() {
-    isvisible = !isvisible;
+    isNotVisible = !isNotVisible;
   }
 
   void validateForm(BuildContext context) {
@@ -39,5 +43,9 @@ abstract class _LoginControllerBase with Store, Validation {
       () => isNotEmptyValidator(password),
       () => isNotEndsWithSpaceValidator(password)
     ]);
+  }
+
+  Future<void> redirectWeb(String url) async {
+    await redirect.redirect(url);
   }
 }
