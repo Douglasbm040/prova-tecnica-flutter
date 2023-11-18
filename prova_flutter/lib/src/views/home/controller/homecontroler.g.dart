@@ -45,7 +45,7 @@ mixin _$HomeController on _HomeControllerBase, Store {
       AsyncAction('_HomeControllerBase.updateListAnotations', context: context);
 
   @override
-  Future<void> updateListAnotations() {
+  Future updateListAnotations() {
     return _$updateListAnotationsAsyncAction
         .run(() => super.updateListAnotations());
   }
