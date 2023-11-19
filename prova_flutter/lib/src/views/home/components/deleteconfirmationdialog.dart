@@ -3,26 +3,26 @@ import 'package:flutter/material.dart';
 class DeleteConfirmationDialog extends StatelessWidget {
   final Function onConfirm;
 
-  DeleteConfirmationDialog({required this.onConfirm});
+  const DeleteConfirmationDialog({super.key, required this.onConfirm});
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text('Confirmar Exclusão'),
-      content: Text('Você tem certeza que deseja excluir este item?'),
+      title: const Text('Confirmar Exclusão'),
+      content: const Text('Você tem certeza que deseja excluir este item?'),
       actions: [
         TextButton(
           onPressed: () {
             Navigator.of(context).pop(); // Fechar o popup
           },
-          child: Text('Cancelar'),
+          child: const Text('Cancelar'),
         ),
         TextButton(
           onPressed: () {
             onConfirm();
             Navigator.of(context).pop(); // Fechar o popup
           },
-          child: Text('Confirmar'),
+          child: const Text('Confirmar'),
         ),
       ],
     );

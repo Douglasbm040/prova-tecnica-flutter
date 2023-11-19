@@ -26,11 +26,17 @@ class CustomTheme {
             ),
           ),
         ),
-        textTheme: const TextTheme(
-            labelMedium: TextStyle(
+        textTheme: TextTheme(
+            labelSmall: TextStyle(
+                color: Colors.red[800],
+                fontSize: 12,
+                fontWeight: FontWeight.bold),
+            labelLarge: const TextStyle(
+                color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
+            labelMedium: const TextStyle(
                 color: Colors.white,
                 fontSize: 16,
                 fontWeight: FontWeight.w300)),
-        scaffoldBackgroundColor: Colors.transparent);
+        scaffoldBackgroundColor: const Color.fromARGB(0, 61, 58, 58));
   }
 }

@@ -19,7 +19,7 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Prova Tecnica Flutter',
       theme: CustomTheme.getTheme(),
-      initialRoute: Routes.home,
+      initialRoute: Routes.login,
       routes: {
         Routes.home: (context) =>
             Consumer2<GeneralController, SharedPreference>(
@@ -28,6 +28,7 @@ class App extends StatelessWidget {
                 controllerGeneral: generalController,
                 controllerPage: HomeController(
                     sharedPreferences: sharedPreferences,
+                    FocusNode(),
                     textController: TextEditingController()),
               );
             }),

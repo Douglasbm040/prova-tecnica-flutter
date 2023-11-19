@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:prova_flutter/src/custom/customtheme.dart';
-import 'package:prova_flutter/src/repository/redirect/redirect.dart';
 import 'package:prova_flutter/src/views/home/components/listanotationcomponent.dart';
 import 'package:prova_flutter/src/views/home/controller/homecontroler.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:prova_flutter/src/views/shared/components/privacepolitictextcomponent.dart';
 
-import '../../../repository/persistence/sharedpreference.dart';
 import '../../shared/controller/generalcontroller.dart';
 import '../components/textfieldcomponent.dart';
-import '../controller/anotationcontroler.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage(
@@ -24,11 +20,16 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final homeController = HomeController(
-      textController: TextEditingController(),
-      sharedPreferences: SharedPreference());
-  final genralController = GeneralController(redirect: Redirect());
-  final FocusNode _focusNode = FocusNode();
+  late HomeController homeController ;
+  late GeneralController genralController ;
+
+  @override
+  void initState() {
+    super.initState();
+    homeController = widget.controllerPage;
+    genralController = widget.controllerGeneral;
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +54,7 @@ class _HomePageState extends State<HomePage> {
               TextFieldComponent(
                   width: width,
                   homeController: homeController,
-                  focusNode: _focusNode),
+                  focusNode:   FocusNode()),
               PrivacePoliticTextComponent(
                 redirect: genralController.onTextPrivicyPolitic,
               ),

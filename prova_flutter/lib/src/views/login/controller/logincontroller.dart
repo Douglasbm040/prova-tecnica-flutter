@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:mobx/mobx.dart';
-import 'package:prova_flutter/src/repository/redirect/adapterredirect.dart';
-import 'package:prova_flutter/src/repository/redirect/redirect.dart';
 import 'package:prova_flutter/src/shared/routes/routes.dart';
 import 'package:prova_flutter/src/shared/validation/validation.dart';
 part 'logincontroller.g.dart';
@@ -11,7 +9,6 @@ class LoginController = _LoginControllerBase with _$LoginController;
 
 abstract class _LoginControllerBase with Store, Validation {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
 
   @observable
   bool isNotVisible = true;
@@ -38,12 +35,8 @@ abstract class _LoginControllerBase with Store, Validation {
 
   String? userValidation(String? password) {
     return fieldValidator([
-      () => hasTwoCharValidator(password),
-      () => isAlphanumericValidator(password),
       () => isNotEmptyValidator(password),
       () => isNotEndsWithSpaceValidator(password)
     ]);
   }
-
-
 }

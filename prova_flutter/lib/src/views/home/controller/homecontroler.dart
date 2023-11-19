@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:mobx/mobx.dart';
 import 'package:prova_flutter/src/model/anotation.dart';
 import 'package:prova_flutter/src/shared/validation/validation.dart';
@@ -13,8 +12,12 @@ part 'homecontroler.g.dart';
 class HomeController = _HomeControllerBase with _$HomeController;
 
 abstract class _HomeControllerBase with Store, Validation {
-  final TextEditingController textController ;
-  final SharedPreference sharedPreferences ;
+  final TextEditingController textController;
+  final SharedPreference sharedPreferences;
+  final FocusNode focusNode;
+
+  @observable
+  String? errorText;
 
   int _index = 0;
 
@@ -50,18 +53,25 @@ abstract class _HomeControllerBase with Store, Validation {
     textController.text = items[index].anotation.text;
   }
 
+  @action
   void editAnotationText(String input) {
-    if (isEditionAnotation) {
-      items[_index].anotationChangeText(input);
-      isEditionAnotation = false;
-      textController.text = "";
-      updateListSharedPreference();
-      return;
+    errorText = isNotEmptyValidator(input);
+    if (errorText == null) {
+      if (isEditionAnotation) {
+        items[_index].anotationChangeText(input);
+        isEditionAnotation = false;
+        textController.text = "";
+        updateListSharedPreference();
+        focusNode.requestFocus();
+        return;
+      }
+      _addAnotation(input);
     }
-    _addAnotation(input);
+    focusNode.requestFocus();
   }
 
-  _HomeControllerBase({required this.textController,required this.sharedPreferences}) {
+  _HomeControllerBase(this.focusNode,
+      {required this.textController, required this.sharedPreferences}) {
     initListAnotations();
   }
   @action

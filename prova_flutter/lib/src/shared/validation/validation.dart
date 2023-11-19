@@ -13,19 +13,23 @@ mixin Validation {
   }
 
   String? hasTwoCharValidator(String? input, [String? message]) {
-    if (input!.length < 2) return message ?? "O campo deve ter pelo menos dois caracteres";
+    if (input!.length < 2) {
+      return message ?? "O campo deve ter pelo menos dois caracteres";
+    }
     return null;
   }
 
   String? isAlphanumericValidator(String? input, [String? message]) {
-    if ( !RegExp(r'^[a-zA-Z0-9]+$').hasMatch(input!)) return message ?? "O campo deve conter apenas letras e números";
+    if (!RegExp(r'^[a-zA-Z0-9]+$').hasMatch(input!)) {
+      return message ?? "O campo deve conter apenas letras e números";
+    }
     return null;
   }
 
   String? isNotEndsWithSpaceValidator(String? input, [String? message]) {
-    if (input!.endsWith(' ')) return message ?? "O campo não pode terminar com espaços no final";
+    if (input!.endsWith(' ')) {
+      return message ?? "O campo deve termina com espaço";
+    }
     return null;
   }
-
-
 }
