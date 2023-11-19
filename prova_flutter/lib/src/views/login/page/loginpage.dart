@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:prova_flutter/src/model/user.dart';
+import 'package:prova_flutter/src/repository/http/adapterhttp.dart';
 import 'package:prova_flutter/src/views/login/controller/logincontroller.dart';
 import 'package:prova_flutter/src/views/shared/controller/generalcontroller.dart';
 
@@ -11,9 +13,11 @@ class LoginPage extends StatefulWidget {
   const LoginPage(
       {super.key,
       required this.controllerGeneral,
-      required this.controllerPage});
+      required this.controllerPage,
+      required this.http});
   final GeneralController controllerGeneral;
   final LoginController controllerPage;
+  final AdapterHttp http;
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
@@ -54,21 +58,26 @@ class _LoginPageState extends State<LoginPage> {
                   child: SizedBox(),
                 ),
                 TextFormFieldComponent(
+                  key: const Key("SenhaTextFieldKey"),
                   label: "Usuário",
                   width: width,
                   icon: const Icon(Icons.person),
                   validator: controllerPage.userValidation,
+                  textFormFieldController: controllerPage.userController,
                 ),
                 const SizedBox(height: 20),
                 Observer(builder: (context) {
                   return TextFormFieldComponent(
-                      label: "Senha",
-                      width: width,
-                      icon: const Icon(Icons.lock),
-                      passwordField: true,
-                      isObscure: controllerPage.isNotVisible,
-                      validator: controllerPage.passwordValidation,
-                      changedVisibility: controllerPage.changeVisible);
+                    key: const Key("UsuarioTextFieldKey"),
+                    label: "Senha",
+                    width: width,
+                    icon: const Icon(Icons.lock),
+                    passwordField: true,
+                    isObscure: controllerPage.isNotVisible,
+                    validator: controllerPage.passwordValidation,
+                    changedVisibility: controllerPage.changeVisible,
+                    textFormFieldController: controllerPage.passwordController,
+                  );
                 }),
                 Padding(
                     padding: const EdgeInsets.all(30.0),
@@ -76,16 +85,24 @@ class _LoginPageState extends State<LoginPage> {
                         width: 250,
                         height: 60,
                         child: ElevatedButton(
-                            onPressed: () =>
-                                controllerPage.validateForm(context),
+                            onPressed: () => controllerPage.validateForm(
+                                context,
+                                widget.http,
+                                User(
+                                    user: controllerPage.userController.text,
+                                    password: controllerPage
+                                        .passwordController.text)),
                             child: Text(
                               "Entrar",
                               style: Theme.of(context).textTheme.labelMedium,
                             )))),
                 Expanded(
                   flex: 2,
-                  child: PrivacePoliticTextComponent(
-                    redirect: controllerGeneral.onTextPrivicyPolitic,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 18.0),
+                    child: PrivacePoliticButtonComponent(
+                      redirect: controllerGeneral.onTextPrivicyPolitic,
+                    ),
                   ),
                 ),
               ],

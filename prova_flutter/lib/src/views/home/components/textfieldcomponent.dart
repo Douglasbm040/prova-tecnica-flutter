@@ -23,6 +23,7 @@ class TextFieldComponent extends StatelessWidget {
         return TextField(
           controller: homeController.textController,
           focusNode: homeController.focusNode,
+          style: Theme.of(context).textTheme.labelLarge,
           decoration: InputDecoration(
             hintText: "            Digite seu texto",
             filled: true,

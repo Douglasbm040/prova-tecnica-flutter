@@ -12,9 +12,9 @@ part 'homecontroler.g.dart';
 class HomeController = _HomeControllerBase with _$HomeController;
 
 abstract class _HomeControllerBase with Store, Validation {
-  final TextEditingController textController;
+  final TextEditingController textController = TextEditingController();
   final SharedPreference sharedPreferences;
-  final FocusNode focusNode;
+  final FocusNode focusNode = FocusNode();
 
   @observable
   String? errorText;
@@ -27,6 +27,7 @@ abstract class _HomeControllerBase with Store, Validation {
 
   @observable
   bool isEditionAnotation = false;
+  
   @observable
   ObservableList<AnotationController> items =
       ObservableList<AnotationController>();
@@ -70,8 +71,8 @@ abstract class _HomeControllerBase with Store, Validation {
     focusNode.requestFocus();
   }
 
-  _HomeControllerBase(this.focusNode,
-      {required this.textController, required this.sharedPreferences}) {
+  _HomeControllerBase(
+      {required this.sharedPreferences}) {
     initListAnotations();
   }
   @action

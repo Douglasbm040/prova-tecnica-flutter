@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prova_flutter/src/repository/http/httprepository.dart';
 import 'package:prova_flutter/src/repository/persistence/sharedpreference.dart';
 import 'package:prova_flutter/src/shared/routes/routes.dart';
 import 'package:prova_flutter/src/views/home/controller/homecontroler.dart';
@@ -27,14 +28,14 @@ class App extends StatelessWidget {
               return HomePage(
                 controllerGeneral: generalController,
                 controllerPage: HomeController(
-                    sharedPreferences: sharedPreferences,
-                    FocusNode(),
-                    textController: TextEditingController()),
+                  sharedPreferences: sharedPreferences,
+                ),
               );
             }),
-        Routes.login: (context) => Consumer<GeneralController>(
-                builder: (context, generalController, _) {
+        Routes.login: (context) => Consumer2<GeneralController, HttpRepository>(
+                builder: (context, generalController, httpRepository, _) {
               return LoginPage(
+                http: httpRepository,
                 controllerGeneral: generalController,
                 controllerPage: LoginController(),
               );

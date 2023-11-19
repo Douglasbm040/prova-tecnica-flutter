@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class PrivacePoliticTextComponent extends StatelessWidget {
-  const PrivacePoliticTextComponent({
+class PrivacePoliticButtonComponent extends StatelessWidget {
+  const PrivacePoliticButtonComponent({
     super.key,
     required this.redirect,
   });
@@ -11,14 +11,13 @@ class PrivacePoliticTextComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(mainAxisAlignment: MainAxisAlignment.end, children: [
-      Padding(
-          padding: const EdgeInsets.symmetric(vertical: 30.0),
-          child: InkWell(
-              onTap: redirect,
-              child: Text(
-                "Políticas de Privacidade",
-                style: Theme.of(context).textTheme.labelMedium,
-              )))
+      TextButton(
+        onPressed: redirect,
+        child: Text(
+          "Políticas de Privacidade",
+          style: Theme.of(context).textTheme.labelMedium,
+        ),
+      )
     ]);
   }
 }

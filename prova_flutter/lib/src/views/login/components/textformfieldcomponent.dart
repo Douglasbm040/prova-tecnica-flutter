@@ -11,6 +11,7 @@ class TextFormFieldComponent extends StatelessWidget {
     this.isObscure = false,
     this.passwordField = false,
     this.changedVisibility,
+    required this.textFormFieldController,
   });
 
   final double width;
@@ -20,6 +21,7 @@ class TextFormFieldComponent extends StatelessWidget {
   final Icon icon;
   final bool isObscure;
   final bool passwordField;
+  final TextEditingController textFormFieldController;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +43,10 @@ class TextFormFieldComponent extends StatelessWidget {
           child: SizedBox(
             width: width * 0.8,
             child: TextFormField(
+              controller: textFormFieldController,
               obscureText: isObscure,
+              textInputAction:
+                  passwordField ? TextInputAction.done : TextInputAction.next,
               decoration: InputDecoration(
                 prefixIcon: icon,
                 suffixIcon: passwordField

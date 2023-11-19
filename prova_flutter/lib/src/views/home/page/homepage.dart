@@ -20,8 +20,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late HomeController homeController ;
-  late GeneralController genralController ;
+  late HomeController homeController;
+  late GeneralController genralController;
 
   @override
   void initState() {
@@ -29,7 +29,6 @@ class _HomePageState extends State<HomePage> {
     homeController = widget.controllerPage;
     genralController = widget.controllerGeneral;
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -49,14 +48,34 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
+              const Expanded(
+                flex: 1,
+                child: SizedBox(
+                  height: 40,
+                ),
+              ),
               ListAnotationComponent(
                   width: width, height: height, homeController: homeController),
-              TextFieldComponent(
-                  width: width,
-                  homeController: homeController,
-                  focusNode:   FocusNode()),
-              PrivacePoliticTextComponent(
-                redirect: genralController.onTextPrivicyPolitic,
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
+                child: TextFieldComponent(
+                    width: width,
+                    homeController: homeController,
+                    focusNode: FocusNode()),
+              ),
+              Expanded(
+                flex: 2,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 18.0),
+                      child: PrivacePoliticButtonComponent(
+                        redirect: genralController.onTextPrivicyPolitic,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
