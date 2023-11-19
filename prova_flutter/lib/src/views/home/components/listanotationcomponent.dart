@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:prova_flutter/src/views/home/components/itemanotationcomponent.dart';
 import 'package:prova_flutter/src/views/home/controller/homecontroler.dart';
-import 'package:prova_flutter/src/views/home/page/homepage.dart';
 
 class ListAnotationComponent extends StatelessWidget {
   const ListAnotationComponent({

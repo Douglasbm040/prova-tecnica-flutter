@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:prova_flutter/src/views/home/controller/anotationcontroler.dart';
@@ -10,7 +9,8 @@ class ItemAnotationComponent extends StatelessWidget {
     super.key,
     required this.width,
     required this.anotationController,
-    required this.homeController, required this.index,
+    required this.homeController,
+    required this.index,
   });
 
   final double width;
@@ -32,18 +32,28 @@ class ItemAnotationComponent extends StatelessWidget {
                     return AnimatedContainer(
                       curve: Curves.easeInOut,
                       duration: const Duration(seconds: 1),
-                      width: 240,
+                      width: 200,
                       height: anotationController.anotation.isNotExpansed
                           ? 80
                           : 350,
                       child: InkWell(
                         onTap: anotationController.anotationChangeIsExpanded,
-                        child: Text(
-                          anotationController.anotation.text,
-                          maxLines: anotationController.anotation.isNotExpansed
-                              ? null
-                              : 3,
-                          overflow: TextOverflow.ellipsis,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8.0, vertical: 25),
+                          child: Text(
+                            anotationController.anotation.text,
+                            maxLines:
+                                anotationController.anotation.isNotExpansed
+                                    ? null
+                                    : 3,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context).textTheme.labelLarge,
+                            textAlign:
+                                anotationController.anotation.isNotExpansed
+                                    ? TextAlign.center
+                                    : TextAlign.start,
+                          ),
                         ),
                       ),
                     );
@@ -57,15 +67,18 @@ class ItemAnotationComponent extends StatelessWidget {
                           child: InkWell(
                               onTap: () =>
                                   homeController.switchMethodeForEdit(index),
-                              child: const Icon(Icons.edit)),
+                              child: SizedBox(
+                                height: 50,
+                                width: 50,
+                                child: Image.asset(
+                                    "assets/image/icons8-editar-64.png"),
+                              )),
                         ),
                         InkWell(
                           onTap: () => homeController
                               .showDeleteConfirmationDialog(context, index),
-                          child: const Icon(
-                            Icons.close_rounded,
-                            color: Colors.red,
-                          ),
+                          child:
+                              Image.asset("assets/image/icons8-fechar-48.png"),
                         )
                       ],
                     ),
