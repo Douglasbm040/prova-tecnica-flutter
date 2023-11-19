@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:prova_flutter/src/repository/http/adapterhttp.dart';
 import 'package:prova_flutter/src/repository/http/httprepository.dart';
 import 'package:prova_flutter/src/repository/redirect/redirect.dart';
 import 'package:prova_flutter/src/views/login/page/loginpage.dart';
 import 'package:prova_flutter/src/views/login/controller/logincontroller.dart';
-import 'package:prova_flutter/src/model/user.dart';
 import 'package:prova_flutter/src/views/shared/controller/generalcontroller.dart';
 
 void main() {

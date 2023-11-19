@@ -19,6 +19,6 @@ void main() {
         ChangeNotifierProvider<HttpRepository>(
           create: (context) => HttpRepository(),
         ),
-      ],child: const App()));
+      ],child: const App(),),);
 }
  
